@@ -6,23 +6,21 @@ def export_data():
     cur = conn.cursor()
 
     query = """
-    select data_atendimento, hora_inicio, data_alta, hora_fim, idade_paciente, tipo_atend, urgente_eletivo 
-    from sigh.ficha_amb_int fai 
-    where data_atendimento between '2023-01-01' and '2023-12-31' 
+    select  id_fia, data_atendimento, hora_inicio, idade_paciente from sigh.ficha_amb_int 
+    where data_atendimento between '2020-01-01' and '2023-12-31' 
     order by data_atendimento asc;
     """
-
+    
     cur.execute(query)
 
     rows = cur.fetchall()
     
-    csv_file = "C:/Users/Administrador/desktop/kpis_hsp/dados/date_extract.csv"
-    
-    
+    csv_file = "C:/Users/Administrador/desktop/kpis_hsp/dados/date.csv"
+
 
     with open(csv_file, mode='w', encoding='utf-8', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["data_atendimento", "hora_inicio", "data_alta", "hora_fim", "idade_paciente", "tipo_atend", "urgente_eletivo"])
+        writer.writerow(["id_fia","data_atendimento", "hora_inicio", "idade_paciente"])
         writer.writerows(rows)
 
     print("Consulta finalizada.")
